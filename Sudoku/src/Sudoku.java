@@ -21,7 +21,7 @@ public class Sudoku {
     public static void main(String[] args) {
 
         //mapeia o argumento de entrada com as posições pré definidas do jogo
-        final var positions = Stream.of(args)
+        final var gameConfig = Stream.of(args)
                 .collect(toMap(
                         k -> k.split(";")[0],
                         v -> v.split(";")[1]
@@ -43,7 +43,7 @@ public class Sudoku {
             option = sc.nextInt();
 
             switch (option) {
-                case 1 -> startGame(positions);
+                case 1 -> startGame(gameConfig);
                 case 2 -> inputValue();
                 case 3 -> removeValue();
                 case 4 -> showCurrentGame();
@@ -117,11 +117,11 @@ public class Sudoku {
         var argPos = 0;
         for (int i = 0; i < BOARD_LIMIT; i++){
             for (var col : board.getBoard()){
-                args[argPos++] = " " + ((isNull(col.get(i).getActual())) ? " " : col.get(i).getActual());
+                args[argPos++] = ((isNull(col.get(i).getActual())) ? "  " : col.get(i).getActual() + " ");
             }
-            System.out.println("Seu jogo se encontra da seguinte forma: ");
-            System.out.printf((BOARD_TEMPLATE) + "%n", args);
         }
+        System.out.println("Seu jogo se encontra da seguinte forma: ");
+        System.out.printf((BOARD_TEMPLATE) + "%n", args);
     }
 
     private static void checkStatus() {
